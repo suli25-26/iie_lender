@@ -41,6 +41,7 @@ public class MainController {
         System.out.println(countSelected());
         if(countSelected() == 5) {
             System.out.println("Mentés...");
+            Store.write(this.generateLine());
         }else {
             System.err.println("Hiba! 5 számot kell megjelölni!");
         }
@@ -54,5 +55,16 @@ public class MainController {
             }
         }
         return count;
+    }
+
+    String generateLine() {
+        StringBuffer sb = new StringBuffer();
+        for(CheckBox box : boxes) {
+            if(box.isSelected()) {
+                sb.append(box.getText());
+                sb.append(",");
+            }
+        }        
+        return sb.toString();
     }
 }
