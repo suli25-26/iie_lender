@@ -21,7 +21,14 @@ public class MainController {
         for(int i=0; i<n; i++) {
             boxes[i] = new CheckBox();
             boxes[i].setText(String.valueOf(i+1));
+            boxes[i].selectedProperty()
+            .addListener((observable, oldValue, newValue) -> {
+                System.out.println(newValue);
+                this.selectedBox.setText(String.valueOf(countSelected()));
+            });
+
             gridPane.add(boxes[i], i % 7, i/7);
+
         }
     }
 
@@ -30,5 +37,22 @@ public class MainController {
         this.startSave();
     }
 
-    void startSave() {}
+    void startSave() {
+        System.out.println(countSelected());
+        if(countSelected() == 5) {
+            System.out.println("Mentés...");
+        }else {
+            System.err.println("Hiba! 5 számot kell megjelölni!");
+        }
+    }
+
+    int countSelected() {
+        int count = 0;
+        for(CheckBox box : boxes) {
+            if(box.isSelected()) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
